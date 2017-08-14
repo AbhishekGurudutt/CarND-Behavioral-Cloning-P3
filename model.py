@@ -21,7 +21,7 @@ def preprocess(image):
     :param image: Image that has to preprocessed
     :return: preprocessed image
     """
-    new_img = image[50:140, :, :]
+    new_img = image[55:160, :, :]
     new_img = cv2.resize(new_img, (200, 66), interpolation=cv2.INTER_AREA)
     new_img = cv2.cvtColor(new_img, cv2.COLOR_BGR2YUV)
     return new_img
@@ -69,10 +69,10 @@ def normalize_data(images, angles):
 
     discard_data = []
     for idx in range(len(angles)):
-        if angles[idx] == 0.0:
+        if (angles[idx] == 0) or (angles[idx] == 0.25) or (angles[idx] == -0.25):
             discard_data.append(idx)
 
-    length = int(len(discard_data) * 0.7)
+    length = int(len(discard_data) * 0.6)
     random_discard = random.sample(discard_data, length)
     print("discard data length: ", len(random_discard))
     print("before shape: ", images.shape, angles.shape)
@@ -99,12 +99,18 @@ def read_data():
 
     for line in lines:
         for i in range(3):
+            offset = 0.0
+            if i == 1:
+                offset = 0.25
+            elif i == 2:
+                offset = -0.25
+
             source_path = line[i]
             filename = source_path.split('/')[-1]
             current_path = 'data/IMG/' + filename
             image = cv2.imread(current_path)
             images.append(preprocess(image))
-            angle = float(line[3])
+            angle = float(line[3]) + offset
             measurements.append(angle)
 
             image = cv2.flip(image, 1)
