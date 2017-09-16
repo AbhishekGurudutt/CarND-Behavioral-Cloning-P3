@@ -21,7 +21,7 @@ def preprocess(image):
     :param image: Image that has to preprocessed
     :return: preprocessed image
     """
-    new_img = image[55:140, :, :]
+    new_img = image[55:160, :, :]
     new_img = cv2.resize(new_img, (200, 66), interpolation=cv2.INTER_AREA)
     new_img = cv2.cvtColor(new_img, cv2.COLOR_BGR2YUV)
     return new_img
