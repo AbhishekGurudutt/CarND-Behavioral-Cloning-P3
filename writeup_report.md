@@ -1,8 +1,8 @@
 [//]: # (Image References)
 
 [image1]: ./writeup_images/nvidia_architecture.png "Model Visualization"
-
-
+[image2]: ./writeup_images/before.png "Before Normalization"
+[image3]: ./writeup_images/after.png "After Normalization"
 
 My project includes the following files:
 * model.py containing the script to create and train the model
@@ -44,7 +44,11 @@ While studying about convolutional neural network, I learnt about overfitting pr
 ##### 4.2 Normalizing the training data
 After analysis, I noticed that the number of images of straight path were much larger than the images of turning. In other words, the steering angle of 0, 0.25 and -0.25 radians were much higher than other steering angles. The training data had to be normalized before training the model.
 
+![alt text][image2]
+
 During normalization, additional images with steering angle of 0, 0.25 and -0.25 radians were removed _[**model.py** line 72 to 96]_.
+
+![alt text][image3]
 
 Normalization helped to steer the car much better during turns.
 
@@ -57,6 +61,7 @@ To load the dataset for training batch wise, generator functions in keras can be
 ##### 4.5 Activation layer
 After reading about different types of activations in machine learning, I found out that Sigmoid activation layer is slower in learning and has a vanishing gradient problem. To avoid these disadvantages, Relu activation layer was made use.
 
+#### [Output video](https://github.com/AbhishekGurudutt/CarND-Behavioral-Cloning-P3/blob/master/output.mp4) 
 
  ### Conclusion
  I enjoyed working on this project. With no background in Machine learning, I have started to learn many concepts in this course, and platforms to use. Training the car with minimal efforts was possible due to the provision of Simiulator and testing due to the provision of `drive.py` by Udacity. I have not tested on the challenge track due to time constraints and I would like to revisit and work on this in future.
